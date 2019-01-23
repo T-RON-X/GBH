@@ -1,0 +1,49 @@
+---
+ - hosts: localhost
+   user: root
+   vars: 
+    yarn_version: v1.13.0
+   tasks:
+   - name: Installing the neccesary
+     apt:
+       name: update
+     apt:
+       name: upgrade
+     apt:
+       name: curl
+       state: present
+
+   - name: Installing PHP 
+     apt:
+       name: php
+     apt:
+       name: php-xml
+     apt:
+       name: php-mysql
+     apt:
+       name: php7.2-mbstring
+ 
+   - name: Installing Nginx 
+     apt:
+       name: nginx
+
+   - name: Installing composer 
+     apt:
+       name: composer
+
+   - name: Installing MySQL
+     apt:
+       name: mysql-server
+      
+
+   - name: Configure the Yarn APT key
+     apt_key: url=https://dl.yarnpkg.com/debian/pubkey.gpg
+
+   - name: Add Yarn repository
+     apt_repository:
+       repo: 'deb https://dl.yarnpkg.com/debian/ stable main'
+       state: present
+
+   - name: Install Yarn
+     apt:
+      name: yarn
